@@ -1,12 +1,43 @@
 const jobs = require("../models/jobs");
 //get all jobs
+// const getalljobs = async (req, res) => {
+//   try {
+//     const job = await jobs.find({});
+//     res.status(200).json({ job });
+//   } catch (error) {
+//     res.status(500).json({ msg: error });
+//   }
+// };
+
 const getalljobs = async (req, res) => {
-  try {
-    const job = await jobs.find({});
-    res.status(200).json({ job });
-  } catch (error) {
-    res.status(500).json({ msg: error });
+  const { companyname, internship, jobid, domain, jobtitle, sort, fields } =
+    req.query;
+  const queryObject = {};
+  if (companyname) {
+    queryObject.companyname = { $regex: companyname, $options: "i" };
   }
+  if (jobid) {
+    queryObject.jobid = jobid;
+  }
+  if (internship) {
+    queryObject.internship = internship === "true" ? true : false;
+  }
+  if (domain) {
+    queryObject.domain = domain;
+  }
+  if (jobtitle) {
+    queryObject.jobtitle = { $regex: jobtitle, $options: "i" };
+  }
+  let result = jobs.find(queryObject);
+  if (sort) {
+    const sortList = sort.split(",").join(" ");
+    result = result.sort(sortList);
+  } else {
+    result = result.sort("lastupdated");
+  }
+  const job = await result;
+
+  res.status(200).json({ job });
 };
 //post a job
 const postjob = async (req, res) => {

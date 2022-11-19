@@ -9,18 +9,20 @@ const jobsSchema = new mongoose.Schema({
     type: String,
     required: [true, "job title must be provided"],
   },
+  jobid: {
+    type: String,
+  },
   lastupdated: {
     type: Date,
     default: Date.now(),
   },
-  jobtype: {
+  domain: {
     type: String,
-    enum: {
-      values: ["fullTime ", "internship"],
-      message: "{VALUE} is not supported",
-    },
-    // enum: ['ikea', 'liddy', 'caressa', 'marcos'],
   },
+  internship: {
+    type: Boolean,
+  },
+  // enum: ['ikea', 'liddy', 'caressa', 'marcos'],
   applylink: {
     type: String,
   },
