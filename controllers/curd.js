@@ -11,12 +11,7 @@ require("cors");
 // };
 
 const getalljobs = async (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin ", "*");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-  );
+ 
   const { companyname, internship, jobid, domain, jobtitle, sort, fields } =
     req.query;
   const queryObject = {};
