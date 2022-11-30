@@ -5,14 +5,11 @@ const app = express();
 const port = process.env.PORT || 3000;
 const jobs = require("./routes/jobroutes");
 const connectDB = require("./db/connect");
-var cors = require('cors');
-
-
 
 //middleware
-app.use(express.json());
+const cors = require("cors");
 app.use(cors());
-
+app.use(express.json());
 
 //routes
 app.use("/api/v1/", jobs);
